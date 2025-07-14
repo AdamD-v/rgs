@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Discord Bot</title></head>
+<body>
+  <h1>Discord Bot Panel</h1>
+  <input type="text" id="channelId" placeholder="Enter Channel ID"><br><br>
+  <button onclick="sendCommand('ping')">Ping</button>
+  <button onclick="sendCommand('sayHello')">Say Hello</button>
+  <script>
+    function sendCommand(command) {
+      const channelId = document.getElementById('channelId').value
+      if (!channelId) return alert('Please enter a Channel ID.')
+
+      fetch('/command', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command, channelId })
+      }).then(res => res.text())
+        .then(alert)
+    }
+  </script>
+</body>
+</html>
